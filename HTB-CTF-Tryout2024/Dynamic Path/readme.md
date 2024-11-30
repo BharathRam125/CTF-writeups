@@ -15,11 +15,11 @@ The grid's values represent the distances between the sections of the tunnels. Y
 
 #### Example
 
-**Input:**
-4 3 
-2 5 1 9 2 3 9 1 3 11 7 4
+**Input:**\
+4 3 \
+2 5 1 9 2 3 9 1 3 11 7 4\
 
-**Grid Representation:**
+**Grid Representation:**\
 2 5 1 \
 9 2 3 \
 9 1 3 \
@@ -125,8 +125,8 @@ if __name__ == "__main__":
     main()
 ```
 
-Explanation:
-solve_min_path_sum(grid, rows, cols): This function calculates the minimum sum of distances to travel from the top-left corner to the bottom-right corner using dynamic programming.
+#Explanation:\
+solve_min_path_sum(grid, rows, cols): This function calculates the minimum sum of distances to travel from the top-left corner to the bottom-right corner using dynamic programming.\
 Main logic: The main function connects to the CTF server, iterates through the test cases, parses the grid dimensions and values, solves for the minimum path sum, and sends the result back to the server.
 
 
