@@ -89,7 +89,7 @@ print("Reset Link:", reset_link)
 ```
 
 ### Visit the reset link, set a new password, and gain access to the admin account.
-### Tthen verify the uploaded image
+### Then verify the uploaded image
 <img src="https://github.com/BharathRam125/CTF-writeups/edit/main/HTB-CTF-Tryout2024/Guild/images/flag.png">
 
 
