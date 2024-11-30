@@ -1,5 +1,6 @@
-Hack The Box CTF Writeup - Guild
-Challenge Name: Try Out - Guild
+# Hack The Box CTF Writeup - Guild
+# Challenge Name: Try Out - Guild
+
 Challenge Description
 The Guild challenge is a Flask-based web application with features like user verification, password reset, and user profiles. The goal is to exploit vulnerabilities such as Server-Side Template Injection (SSTI) in the file upload functionality, a weak password reset mechanism, and insufficient input validation to escalate privileges and gain access to the flag.
 
@@ -20,7 +21,6 @@ Steps to Exploit:
 Craft Malicious Image with Payload: Use a Python script to embed the malicious payload in the Artist tag of the image’s EXIF metadata.
 
 ```python
-Copy code
 from PIL import Image
 import piexif
 
@@ -55,7 +55,6 @@ Steps to Exploit:
 Generate Reset Link: Using the admin's email, we generate the password reset link by hashing the email address with SHA-256.
 
 ```python
-Copy code
 import hashlib
 
 # Admin's email
