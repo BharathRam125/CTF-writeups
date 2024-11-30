@@ -64,7 +64,7 @@ This would be executed when the admin views the user's profile or when the user 
 
 <img src="images/bio.png">
 
-###3. Weak Password Reset Mechanism
+### 3. Weak Password Reset Mechanism
 The password reset functionality relies on SHA-256 hashes of email addresses to generate password reset links. This mechanism is vulnerable because the hash of the email is predictable and does not have any additional security, such as time-based expiration or randomness.
 
 Exploit Overview:
