@@ -1,5 +1,5 @@
 # Hack The Box CTF Writeup - Guild
-# Challenge Name: Try Out - Guild
+
 
 Challenge Description
 The Guild challenge is a Flask-based web application with features like user verification, password reset, and user profiles. The goal is to exploit vulnerabilities such as Server-Side Template Injection (SSTI) in the file upload functionality, a weak password reset mechanism, and insufficient input validation to escalate privileges and gain access to the flag.
