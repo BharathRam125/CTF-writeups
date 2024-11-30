@@ -42,7 +42,7 @@ exif_bytes = piexif.dump(exif_dict)
 img.save("exploit.jpg", exif=exif_bytes)
 ```
 Upload the Malicious Image: Upload the crafted image through the /verification endpoint.
-![alt text](https://github.com/BharathRam125/CTF-writeups/edit/main/HTB-CTF-Tryout2024/Guild/images/upload.png)
+<img src="https://github.com/BharathRam125/CTF-writeups/edit/main/HTB-CTF-Tryout2024/Guild/images/upload.png">
 Admin Verification:
 
 The admin will verify the uploaded image and the malicious payload will be executed on the server, revealing the flag.
