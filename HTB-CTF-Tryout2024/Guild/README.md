@@ -1,11 +1,11 @@
 # Hack The Box CTF Writeup - Guild
 
 
-Challenge Description
+##Challenge Description
 The Guild challenge is a Flask-based web application with features like user verification, password reset, and user profiles. The goal is to exploit vulnerabilities such as Server-Side Template Injection (SSTI) in the file upload functionality, a weak password reset mechanism, and insufficient input validation to escalate privileges and gain access to the flag.
 
-Vulnerabilities and Exploitation
-1. Server-Side Template Injection (SSTI) in File Upload
+##Vulnerabilities and Exploitation
+###1. Server-Side Template Injection (SSTI) in File Upload
 The file upload functionality allows users to upload verification documents. These documents are processed and verified by an admin, but EXIF metadata embedded in the image files is not properly sanitized. The vulnerability arises from the use of Jinja2 template rendering in the server-side code, which allows arbitrary Python code execution via Server-Side Template Injection (SSTI).
 
 Exploit Overview:
@@ -13,8 +13,9 @@ The EXIF "Artist" tag is processed and passed through render_template_string() w
 By injecting a malicious Jinja2 payload into the Artist EXIF tag, we can execute arbitrary Python code on the server.
 Malicious Payload for EXIF Artist Tag:
 python
-Copy code
+```
 b'{{ request.application.__globals__.__builtins__.__import__("os").popen("cat flag.txt").read() }}'
+```
 This payload tries to execute cat flag.txt on the server, which returns the content of the flag.txt file.
 
 Steps to Exploit:
@@ -41,11 +42,29 @@ exif_bytes = piexif.dump(exif_dict)
 img.save("exploit.jpg", exif=exif_bytes)
 ```
 Upload the Malicious Image: Upload the crafted image through the /verification endpoint.
-
+![alt text]([http://url/to/img.png](https://github.com/BharathRam125/CTF-writeups/edit/main/HTB-CTF-Tryout2024/Guild/images/upload.png)
 Admin Verification:
 
 The admin will verify the uploaded image and the malicious payload will be executed on the server, revealing the flag.
-2. Weak Password Reset Mechanism
+
+###2. Insecure Input Validation in Bio Field
+The bio field, which allows users to update their profile bio, does not properly validate inputs. Although there is a blacklist of certain dangerous characters, the blacklist-based approach can be easily bypassed. This flaw allows an attacker to inject malicious code into their bio, which could potentially lead to XSS or RCE.
+
+Exploit Overview:
+The bio input is not sanitized, and users can input harmful scripts or payloads that may be executed on the server.
+Example Payload:
+The attacker could input the following XSS payload in their bio:
+
+```html
+<td>{{User.query.filter_by(username="admin").first().email}}</td>
+```
+This would be executed when the admin views the user's profile or when the user views their own profile, revealing the vulnerability.
+
+![alt text]([http://url/to/img.png](https://github.com/BharathRam125/CTF-writeups/edit/main/HTB-CTF-Tryout2024/Guild/images/bio.png)
+
+![alt text]([http://url/to/img.png](https://github.com/BharathRam125/CTF-writeups/edit/main/HTB-CTF-Tryout2024/Guild/images/bio.png)
+
+###3. Weak Password Reset Mechanism
 The password reset functionality relies on SHA-256 hashes of email addresses to generate password reset links. This mechanism is vulnerable because the hash of the email is predictable and does not have any additional security, such as time-based expiration or randomness.
 
 Exploit Overview:
@@ -64,25 +83,15 @@ email = "admin@guild.com"
 hashed = hashlib.sha256(email.encode()).hexdigest()
 
 # Construct the reset link
-reset_link = f"changepasswd/{hashed}"
+reset_link = f"http://<ip>:<port>/changepasswd/{hashed}"
 
 print("Reset Link:", reset_link)
 ```
-Use the Reset Link:
 
-Visit the reset link, set a new password, and gain access to the admin account.
-3. Insecure Input Validation in Bio Field
-The bio field, which allows users to update their profile bio, does not properly validate inputs. Although there is a blacklist of certain dangerous characters, the blacklist-based approach can be easily bypassed. This flaw allows an attacker to inject malicious code into their bio, which could potentially lead to XSS or RCE.
+### Visit the reset link, set a new password, and gain access to the admin account.
+### Tthen verify the uploaded image
+![alt text]([http://url/to/img.png](https://github.com/BharathRam125/CTF-writeups/edit/main/HTB-CTF-Tryout2024/Guild/images/flag.png)
 
-Exploit Overview:
-The bio input is not sanitized, and users can input harmful scripts or payloads that may be executed on the server.
-Example Payload:
-The attacker could input the following XSS payload in their bio:
-
-```html
-<td>{{User.query.filter_by(username="admin").first().email}}</td>
-```
-This would be executed when the admin views the user's profile or when the user views their own profile, revealing the vulnerability.
 
 Steps to Exploit:
 Update Bio:
