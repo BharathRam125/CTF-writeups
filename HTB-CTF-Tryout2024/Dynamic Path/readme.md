@@ -17,7 +17,7 @@ The grid's values represent the distances between the sections of the tunnels. Y
 
 **Input:**\
 4 3 \
-2 5 1 9 2 3 9 1 3 11 7 4\
+2 5 1 9 2 3 9 1 3 11 7 4
 
 **Grid Representation:**\
 2 5 1 \
@@ -130,4 +130,20 @@ solve_min_path_sum(grid, rows, cols): This function calculates the minimum sum o
 
 Main logic: The main function connects to the CTF server, iterates through the test cases, parses the grid dimensions and values, solves for the minimum path sum, and sends the result back to the server.
 
+#TERMINAL OUTPUT
+```
+.
+.
+.
+.
+Test 98/100
+Server Response: >
+Result Sent: 1690
+Test 99/100
+Server Response: >
+Result Sent: 1913
+Test 100/100
+Server Response: > You managed to traverse the maze of the underground and escape the behemoth. Here is your reward: HTB{b3h3M07H_5h0uld_H4v3_57ud13D_dYM4m1C_pr09r4mm1n9_70_C47ch_y0u_7993ce3ad5e391f976da123b87f55e87}
+
+```
 
