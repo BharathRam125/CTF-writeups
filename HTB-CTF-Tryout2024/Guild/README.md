@@ -1,11 +1,11 @@
 # Hack The Box CTF Writeup - Guild
 
 
-##Challenge Description
+## Challenge Description
 The Guild challenge is a Flask-based web application with features like user verification, password reset, and user profiles. The goal is to exploit vulnerabilities such as Server-Side Template Injection (SSTI) in the file upload functionality, a weak password reset mechanism, and insufficient input validation to escalate privileges and gain access to the flag.
 
-##Vulnerabilities and Exploitation
-###1. Server-Side Template Injection (SSTI) in File Upload
+## Vulnerabilities and Exploitation
+### 1. Server-Side Template Injection (SSTI) in File Upload
 The file upload functionality allows users to upload verification documents. These documents are processed and verified by an admin, but EXIF metadata embedded in the image files is not properly sanitized. The vulnerability arises from the use of Jinja2 template rendering in the server-side code, which allows arbitrary Python code execution via Server-Side Template Injection (SSTI).
 
 Exploit Overview:
@@ -47,7 +47,7 @@ Admin Verification:
 
 The admin will verify the uploaded image and the malicious payload will be executed on the server, revealing the flag.
 
-###2. Insecure Input Validation in Bio Field
+### 2. Insecure Input Validation in Bio Field
 The bio field, which allows users to update their profile bio, does not properly validate inputs. Although there is a blacklist of certain dangerous characters, the blacklist-based approach can be easily bypassed. This flaw allows an attacker to inject malicious code into their bio, which could potentially lead to XSS or RCE.
 
 Exploit Overview:
@@ -93,13 +93,11 @@ print("Reset Link:", reset_link)
 <img src="images/flag.png">
 
 
-Steps to Exploit:
-Update Bio:
-Input the malicious payload in the bio field.
-If the input validation is bypassed, the payload will be stored in the database and executed when rendered.
-Flag Retrieval
-To retrieve the flag:
-
-Reset the admin password using the generated password reset link.
-Log in as admin and verify the malicious image.
-The injected payload in the EXIF "Artist" tag will execute and display the flag.
+###Steps to Exploit:
+1. Craft a payload image and upload
+2. Inject script in bio to reveal admin's email
+3. forgot password using admin's email
+4. Generate the password reset link using the admin's email
+5. Reset the admin password using the generated password reset link.
+6. Log in as admin and verify the malicious image.
+7. The injected payload in the EXIF "Artist" tag will execute and display the flag.
