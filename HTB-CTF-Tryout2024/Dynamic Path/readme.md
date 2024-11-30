@@ -16,10 +16,14 @@ The grid's values represent the distances between the sections of the tunnels. Y
 #### Example
 
 **Input:**
-4 3 2 5 1 9 2 3 9 1 3 11 7 4
+4 3 
+2 5 1 9 2 3 9 1 3 11 7 4
 
 **Grid Representation:**
-2 5 1 9 2 3 9 1 3 11 7 4
+2 5 1 
+9 2 3 
+9 1 3 
+11 7 4
 
 
 **Optimal Path:**
