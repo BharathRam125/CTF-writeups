@@ -126,7 +126,7 @@ if __name__ == "__main__":
 ```
 
 # Explanation:
-solve_min_path_sum(grid, rows, cols): This function calculates the minimum sum of distances to travel from the top-left corner to the bottom-right corner using dynamic programming.\
+solve_min_path_sum(grid, rows, cols): This function calculates the minimum sum of distances to travel from the top-left corner to the bottom-right corner using dynamic programming.
 
 Main logic: The main function connects to the CTF server, iterates through the test cases, parses the grid dimensions and values, solves for the minimum path sum, and sends the result back to the server.
 
