@@ -80,7 +80,7 @@
         (r/status 404))))
 ```
 
-### 1. **Broken Access Control**
+###  **Broken Access Control**
 
   - The application includes a `/gists` route, which should only be accessible to the `admin` user.
 
@@ -94,7 +94,7 @@
  - This will bypass the authentication check and load the gists page as the admin user.
 ---
 
-### 2. **Server-Side Template Injection (SSTI)**
+###  **Server-Side Template Injection (SSTI)**
 
 ```clojure
 (ns manifesto.core
