@@ -90,7 +90,7 @@
 
   - The `/gists` route does not properly validate user session when redirect redirect through . Anyone with the correct parameters can access the gists without being the admin.
 
-** ` ?prefer=dark&username=admin&redirect=/gists ` **
+  ` ?prefer=dark&username=admin&redirect=/gists `
  - This will bypass the authentication check and load the gists page as the admin user.
 ---
 
