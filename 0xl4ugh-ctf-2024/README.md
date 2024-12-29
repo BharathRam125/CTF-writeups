@@ -1,10 +1,9 @@
 
 # 0xL4ugh CTF 2024 - Write-Up 
-##Web 
-"Challenge : Manifesto"
+
+## Web Challenge : Manifesto
 
 ## Source code analysis
-The application defines the following routes:
 ```clojure
 (defn routes [{:keys [request-method uri session query-params form-params]}]
   (cond
@@ -83,18 +82,16 @@ The application defines the following routes:
 
 ### 1. **Broken Access Control**
 
-The application includes a `/gists` route, which should only be accessible to the `admin` user.
+  - The application includes a `/gists` route, which should only be accessible to the `admin` user.
 
-- **Use of Query Parameters for Authentication:**
-  The authentication check is bypassed using the `prefer` query parameter. The application doesn't verify whether the user accessing the page is truly the `admin`. Instead, it checks if a `username` session variable is present, but this session isn't properly validated.
+  - The authentication check is bypassed using the `prefer` query parameter. The application doesn't verify whether the user accessing the page is truly the `admin`. Instead, it checks if a `username` session variable is present, but this session isn't properly validated.
 
-  - The query parameter `prefer` determines the theme (`light` or `dark`) for the interface but is also incorrectly used in the authentication check.
+  - The query parameter `prefer` determines the theme (`light` or `dark`) for the interface which can be exploited to bypass admin by manipulating the query parameters to set the username as `admin`.
 
-  - The issue can be exploited by manipulating the query parameters to set the username as `admin`.
+  -The `/gists` route does not properly validate user session when redirect redirect through . Anyone with the correct parameters can access the gists without being the admin.
 
-- **No Session Verification on Sensitive Routes:**
-  The `/gists` route does not properly validate user session before granting access to the content. Anyone with the correct parameters can access the gists without being the admin.
-
+`?prefer=dark&username=admin&redirect=/gists`
+This will bypass the authentication check and load the gists page as the admin user.
 ---
 
 ### 2. **Server-Side Template Injection (SSTI)**
@@ -138,8 +135,10 @@ The application includes a `/gists` route, which should only be accessible to th
 
 - The flag is stored as an environment variable (`FLAG`) on the server, and the app uses `environ.core/env` to access the environment variables.
 
-- The vulnerable code in `gists.html` directly renders user input without sanitization, which allows an attacker to inject arbitrary code.
-- Payload `#=(environ.core/env :flag)` to retrieve the `FLAG` from the env.
+- `gists` directly renders user input without sanitization.
+- Inject this payload in gists `#=(environ.core/env :flag)` to retrieve the `FLAG` from the env.
+
+<img src="images/flag.png">  
 
 
 
