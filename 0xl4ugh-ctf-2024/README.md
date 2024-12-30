@@ -88,7 +88,7 @@
 
   - The query parameter `prefer` determines the theme (`light` or `dark`) for the interface which can be exploited to bypass admin by manipulating the query parameters to set the username as `admin`.
 
-  - The `/gists` route does not properly validate user session when redirect redirect through . Anyone with the correct parameters can access the gists without being the admin.
+  - The `/gists` route does not properly validate user session when redirect through prefer. Anyone with the correct parameters can access the gists without being the admin.
 
   ` ?prefer=dark&username=admin&redirect=/gists `
  - This will bypass the authentication check and load the gists page as the admin user.
