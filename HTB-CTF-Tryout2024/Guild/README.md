@@ -42,7 +42,7 @@ exif_bytes = piexif.dump(exif_dict)
 img.save("exploit.jpg", exif=exif_bytes)
 ```
 Upload the Malicious Image: Upload the crafted image through the /verification endpoint.
-<img src="images/upload.png">
+<img src="https://raw.githubusercontent.com/BharathRam125/CTF-writeups/main/HTB-CTF-Tryout2024/Guild/images/upload.png">
 Admin Verification:
 
 The admin will verify the uploaded image and the malicious payload will be executed on the server, revealing the flag.
@@ -60,9 +60,9 @@ The attacker could input the following XSS payload in their bio:
 ```
 This would be executed when the admin views the user's profile or when the user views their own profile, revealing the vulnerability.
 
-<img src="images/bio.png">
+<img src="https://raw.githubusercontent.com/BharathRam125/CTF-writeups/main/HTB-CTF-Tryout2024/Guild/images/profile.png">
 
-<img src="images/bio.png">
+<img src="https://raw.githubusercontent.com/BharathRam125/CTF-writeups/main/HTB-CTF-Tryout2024/Guild/images/bio.png">
 
 ### 3. Weak Password Reset Mechanism
 The password reset functionality relies on SHA-256 hashes of email addresses to generate password reset links. This mechanism is vulnerable because the hash of the email is predictable and does not have any additional security, such as time-based expiration or randomness.
@@ -90,7 +90,7 @@ print("Reset Link:", reset_link)
 
 ### Visit the reset link, set a new password, and gain access to the admin account.
 ### Then verify the uploaded image
-<img src="images/flag.png">
+<img src="https://raw.githubusercontent.com/BharathRam125/CTF-writeups/main/HTB-CTF-Tryout2024/Guild/images/flag.png">
 
 
 ###Steps to Exploit:
