@@ -107,7 +107,7 @@ I targeted the **Post** table to retrieve the flag stored in an unpublished post
 ```bash
 GET /api/posts?[author][posts][some][body][contains]=uoftctf{§a§
 ```
-This query checks for any **posts** related to an **author** where the **body** contains a substring starting with a specific character. Since Prisma filters like `contains` are case-insensitive, I initially received no response for uppercase characters. However, I decided to try lowercase characters, as previously solved flags in UofTCTF followed an all-lowercase pattern.
+This query checks for any **posts** related to an **author** where the **body** contains a substring starting with a specific character. Since Prisma filters like `contains` are case-insensitive. However, I decided to try lowercase characters, as previously solved flags in UofTCTF followed an all-lowercase pattern.
 
 Using **Burp Suite Intruder**, I automated the process to retrieve the flag character by character by modifying the payload to:
 ```bash
