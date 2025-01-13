@@ -1,7 +1,7 @@
 
 # UofTCTF 2025 Writeup
 
-## **Challenge Name:** Prismatic Blogs  
+## **1. Challenge Name:** Prismatic Blogs  
 **Category:** Web  
 **Vulnerability:** ORM Leak
 
@@ -140,4 +140,24 @@ uoftctf{u51n6_0rm5_d035_n07_m34n_1nj3c710n5_c4n7_h4pp3n}
 ```
 
 ---
+## **2. Challenge Name:** Scavenger Hunt 
+**Category:** Web  
 
+### Challenge Details:
+The flag is split across different parts of the website. To uncover it, inspect the following elements using the browser's inspect tool:
+- `robots.txt`
+- CSS files
+- HTML source code
+- Cookies
+
+### Flag Parts:
+1. `ju57_k33p_`
+2. `c4lm_4nd_`
+3. `1n5p3c7_`
+4. `411_7h3_`
+5. `4pp5_`
+6. `50urc3_`
+7. `c0d3!!`
+
+### Flag:
+`uoftctf{ju57_k33p_c4lm_4nd_1n5p3c7_411_7h3_4pp5_50urc3_c0d3!!}`
