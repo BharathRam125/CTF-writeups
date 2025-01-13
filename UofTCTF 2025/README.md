@@ -1,6 +1,5 @@
 
 # UofTCTF 2025 Writeup
----
 
 ## **Challenge Name:** Prismatic Blogs  
 **Category:** Web  
@@ -76,7 +75,7 @@ This query was internally changed to `published=true`.
 
 
 ### **Exploitation Process**
-### **Step 1: Relational Filter Manipulation**
+### **Relational Filter Manipulation**
 I explored relational filters in Prisma:
 ```bash
 GET /api/posts?[author][name]=Bob
@@ -90,7 +89,7 @@ This translated to:
 ```
 This query worked but only returned **published posts**.
 
-### **Step 2: Targeting Passwords**
+### **Approach 1: Targeting Passwords [Failed]**
 I realized that user passwords were stored in the **User** table. By using **relational filters**, I could extract passwords character by character.
 
 I used **Burp Suite Intruder** to automate the process with the following payload:
@@ -99,9 +98,10 @@ GET /api/posts?[author][password][startsWith]=§a§
 ```
 This revealed **Tommy's password**. However, all characters were uppercase, indicating that Prisma's `startsWith` filter is **case-insensitive**.
 
-I used a simple **alphanumeric payload list** (A-Z, a-z, 0-9) in **Burp Suite Intruder** to test each character sequentially.
+I used a simple **alphanumeric payload list** (A-Z, a-z, 0-9) in **Burp Suite Intruder** to test each character sequentially.This approach successfully revealed Tommy's password, but the password was all uppercase.  
+Note : We can try `le` and `ge` filters to check for case. 
 
-### **Step 3: Flag Retrieval**
+### **Approach 2: Flag Retrieval [Success]**
 I targeted the **Post** table to retrieve the flag stored in an unpublished post using this query:
 ```bash
 GET /api/posts?[author][posts][some][body][contains]=uoftctf{§a§
@@ -124,23 +124,14 @@ GET /api/posts?[author][posts][some][body][contains]=uoftctf{u51
 ```
 I observed that responses with more content had longer lengths, indicating posts belonging to the same author were returned in the response. Shorter responses indicated no match.
 
+ 
 
-### **Attempts and Failures**
-### Failed Approaches:
-1. Directly modifying the `published` field in the query.
-2. Using various filter methods like `equals`, `endsWith`, and `has`.
-3. Targeting numeric fields like `authorId` and `postId`.
-
-### Successful Approach:
-- Using **case-insensitive relational filters** (`startsWith`, `contains`) on **string fields**.
-- Automating the character-by-character extraction process using **Burp Suite Intruder**.
-- Focusing on lowercase characters based on the observed pattern in previous flags.
-
-
-### **Key Takeaways:**
+### Key Insights:
 - Prisma's relational filters (`contains`, `startsWith`, `endsWith`, `some`) can be exploited to access unauthorized data.
 - Query parameters are treated as **strings**, even for integer fields.
 - Filters are **case-insensitive**, impacting brute-force attacks.
+- Automating the character-by-character extraction process using **Burp Suite Intruder**.
+- Previous UofTCTF flags followed an all-lowercase pattern, which gave me the confidence to try lowercase characters.
 
 
 ### **Flag:**
