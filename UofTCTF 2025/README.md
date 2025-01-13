@@ -89,7 +89,7 @@ This translated to:
 ```
 This query worked but only returned **published posts**.
 
-### **Approach 1: Targeting Passwords [Failed]**
+### **Approach 1: Targeting Passwords [Tried and dropped]**
 I realized that user passwords were stored in the **User** table. By using **relational filters**, I could extract passwords character by character.
 
 I used **Burp Suite Intruder** to automate the process with the following payload:
@@ -99,7 +99,8 @@ GET /api/posts?[author][password][startsWith]=§a§
 This revealed **Tommy's password**. However, all characters were uppercase, indicating that Prisma's `startsWith` filter is **case-insensitive**.
 
 I used a simple **alphanumeric payload list** (A-Z, a-z, 0-9) in **Burp Suite Intruder** to test each character sequentially.This approach successfully revealed Tommy's password, but the password was all uppercase.  
-Note : We can try `le` and `ge` filters to check for case. 
+
+Note : We can try `le` and `ge` filters to check for case of each character but time consuming. 
 
 ### **Approach 2: Flag Retrieval [Success]**
 I targeted the **Post** table to retrieve the flag stored in an unpublished post using this query:
