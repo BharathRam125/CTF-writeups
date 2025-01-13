@@ -1,18 +1,15 @@
 
 # UofTCTF 2025 Writeup
+---
 
 ## **Challenge Name:** Prismatic Blogs  
 **Category:** Web  
 **Vulnerability:** ORM Leak
 
----
-
-## **Introduction**
+### **Introduction**
 The challenge involved a web application called **Prismatic Blogs**. The backend used **Express.js** and the **Prisma Client** for database interactions. The main vulnerability exploited was an **ORM Leak** that allowed unauthorized access to sensitive data by manipulating relational filters.
 
----
-
-## **Schema and Backend Analysis**
+### **Schema and Backend Analysis**
 The application used **SQLite** as the database provider, with the following Prisma schema:
 
 ```prisma
@@ -65,8 +62,6 @@ app.get("/api/posts", async (req, res) => {
 
 This implementation forces `published=true` before querying the database, preventing users from accessing unpublished posts.
 
----
-
 ### Observations:
 - Prisma coerces query parameters into **strings**.
   - Example: `authorId=1` becomes `authorId='1'`
@@ -79,9 +74,8 @@ GET /api/posts?published=false
 ```
 This query was internally changed to `published=true`.
 
----
 
-## **Exploitation Process**
+### **Exploitation Process**
 ### **Step 1: Relational Filter Manipulation**
 I explored relational filters in Prisma:
 ```bash
@@ -130,9 +124,8 @@ GET /api/posts?[author][posts][some][body][contains]=uoftctf{u51
 ```
 I observed that responses with more content had longer lengths, indicating posts belonging to the same author were returned in the response. Shorter responses indicated no match.
 
----
 
-## **Attempts and Failures**
+### **Attempts and Failures**
 ### Failed Approaches:
 1. Directly modifying the `published` field in the query.
 2. Using various filter methods like `equals`, `endsWith`, and `has`.
@@ -143,16 +136,14 @@ I observed that responses with more content had longer lengths, indicating posts
 - Automating the character-by-character extraction process using **Burp Suite Intruder**.
 - Focusing on lowercase characters based on the observed pattern in previous flags.
 
----
 
-## **Key Takeaways:**
+### **Key Takeaways:**
 - Prisma's relational filters (`contains`, `startsWith`, `endsWith`, `some`) can be exploited to access unauthorized data.
 - Query parameters are treated as **strings**, even for integer fields.
 - Filters are **case-insensitive**, impacting brute-force attacks.
 
----
 
-## **Flag:**
+### **Flag:**
 ```
 uoftctf{u51n6_0rm5_d035_n07_m34n_1nj3c710n5_c4n7_h4pp3n}
 ```
