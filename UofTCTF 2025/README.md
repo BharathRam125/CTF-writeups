@@ -129,8 +129,7 @@ I observed that responses with more content had longer lengths, indicating posts
 ### Key Insights:
 - Prisma's relational filters (`contains`, `startsWith`, `endsWith`, `some`) can be exploited to access unauthorized data.
 - Query parameters are treated as **strings**, even for integer fields.
-- Filters are **case-insensitive**, impacting brute-force attacks.
-- Automating the character-by-character extraction process using **Burp Suite Intruder**.
+- Filters are **case-insensitive**.
 - Previous UofTCTF flags followed an all-lowercase pattern, which gave me the confidence to try lowercase characters.
 
 
