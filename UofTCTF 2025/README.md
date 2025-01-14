@@ -6,7 +6,7 @@
 **Vulnerability:** ORM Leak
 
 ### **Introduction**
-The challenge involved a web application called **Prismatic Blogs**. The backend used **Express.js** and the **Prisma Client** for database interactions. The main vulnerability exploited was an **ORM Leak** that allowed unauthorized access to sensitive data by manipulating relational filters.
+The challenge involved a web application called **Prismatic Blogs**. The backend used **Express.js** and the **Prisma Client** for database interactions. The main vulnerability exploited was an **ORM Leak** by manipulating relational filters in prisma.
 
 ### **Schema and Backend Analysis**
 The application used **SQLite** as the database provider, with the following Prisma schema:
@@ -90,7 +90,7 @@ This translated to:
 This query worked but only returned **published posts**.
 
 ### **Approach 1: Targeting Passwords [Tried and dropped]**
-I realized that user passwords were stored in the **User** table. By using **relational filters**, I could extract passwords character by character.
+`api/login` on successfull login give all the posts (both published and un published) .User names are already known from the chall files. User passwords were stored in the User table. By using relational filters, I could extract passwords character by character.
 
 I used **Burp Suite Intruder** to automate the process with the following payload:
 ```bash
