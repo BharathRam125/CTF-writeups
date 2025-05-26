@@ -86,7 +86,7 @@ flag{0db031ac265b3e6538aff0d9f456004f}
 ```
 ---
 
-# Method In The Madness [Web]
+## Method In The Madness [Web]
 
 <img src="https://raw.githubusercontent.com/BharathRam125/CTF-writeups/main/NahamCon%202025/images/method1.png">
 
@@ -138,7 +138,7 @@ flag{b1bd4795215a7b81699487cc7e32d936}
 ```
 ---
 
-# NoSequel [Web]
+## NoSequel [Web]
 
 <img src="https://raw.githubusercontent.com/BharathRam125/CTF-writeups/main/NahamCon%202025/images/seq1.png">
 
@@ -193,8 +193,10 @@ Approach :
 ```
 flag{8f667b09d0e821f4e14d59a8037eb376}
 ```
+
 ---
-# Screenshot [Forensizs]
+
+## Screenshot [Forensizs]
 <img src="https://raw.githubusercontent.com/BharathRam125/CTF-writeups/main/NahamCon%202025/images/ss1.png">
 
 The challenge provided a **screenshot of a hex dump** of a ZIP file (`flag.zip`).
@@ -235,14 +237,16 @@ with open(block_output_path, "wb") as f:
 
 block_output_path, len(zip_bytes_from_blocks)
 ```
+
 3. Extracting the flag.zip with given password gives the flag.txt revealing the flag.
 
 ```
 flag{907e5bb257cd5fc818e88a13622f3d46}
 ```
+
 ---
 
-# The Oddeyssey [pwn]
+## The Oddeyssey [pwn]
 
 <img src="https://raw.githubusercontent.com/BharathRam125/CTF-writeups/main/NahamCon%202025/images/odd1.png">
 
