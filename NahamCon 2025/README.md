@@ -203,6 +203,7 @@ The challenge provided a **screenshot of a hex dump** of a ZIP file (`flag.zip`)
 Approach
 1. **Performed OCR** (Optical Character Recognition) on the screenshot to extract the **hex values** of the ZIP file from the Screenshot.png.
 2. Script to reconstruct the zip from hex dump:
+
 ```python
 # Raw hex data broken into groups (space-separated)
 hex_dump = """
@@ -256,6 +257,7 @@ Challenge Behavior
 
 Exploitation
 Automated script using **pwntools** :
+
 ```python
 from pwn import *
 
@@ -287,11 +289,14 @@ while True:
 # Clean exit
 conn.close()
 ```
+
 <img src="https://raw.githubusercontent.com/BharathRam125/CTF-writeups/main/NahamCon%202025/images/odd2.png">
 
 ```
 flag{0b51aae6b09b85d1bb13b0b8c3003a6a}
 ```
+
+---
 
 
    
